@@ -38,11 +38,11 @@ bool nhsNumberCheckBool(std::string nhsNumber) {
 	int m = 11 - (tot % 11);
 
 	// if m is 11, reassigns to 0
+	// if m = 10, this is an invalid NHS number, so returns false
+
 	if (m == 11) {
 		m = 0;
-    }
-	// if m = 10, this is an invalid NHS number, so returns false
-	if (m == 10) {
+    	} else if (m == 10) {
 		return false;
 	}
 	// checks that the computed check digit agrees with the one provided
