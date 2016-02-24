@@ -48,12 +48,14 @@ func nhsNumberCheckBool(nhsNumber: String) -> Bool {
     	
     	// computes tot(mod 11) then takes this from 11
     	var m:Int = 11 - (tot % 11)
-    	// if m is 10, this NHS number is not valid. If m is 11, sets m to 10
-    	if m == 10 {
-        	return false
-    	} else if m == 11 {
+    	
+    	// If m is 11, sets m to 10, if m is 10, this NHS number is not valid. 
+    	if m == 11 {
         	m = 0
+    	} else if m == 10 {
+    		return false
     	}
+    	
     	// returns whether or not m matches providedCs
     	return(m == providedCs)
 }
