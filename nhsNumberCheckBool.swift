@@ -37,7 +37,7 @@ func nhsNumberCheckBool(nhsNumber: String) -> Bool {
     
     // check that NHS number is in range, see http://systems.hscic.gov.uk/nhsnumber/staff/comms/4788factsheet.pdf
     guard rangeCheck >= 400000000 && rangeCheck < 800000000
-        && (rangeCheck < 500000000 || rangeCheck >= 600000000) else {
+    	&& (rangeCheck < 500000000 || rangeCheck >= 600000000) else {
             return false
     }
     
@@ -49,9 +49,12 @@ func nhsNumberCheckBool(nhsNumber: String) -> Bool {
     var j:Int = 1
     var multiplier:Int = 10
     
-    /* having initialised  tot as 0, then working back from the last digit
-	*  before the check sum, multiplies by 10 and adds to the total, multiplies 
-	*/ by 9 and adds to the total and so on for all digits.
+    /* 
+    *  Having initialised tot as 0, then working back from the last digit
+    *  before the check sum, multiplies by 10 and adds to the total, multiplies 
+    *  by 9 and adds to the total and so on for all digits.
+    */
+    
     while j < 10 {
         tot += multiplier * (rangeCheckIterate - 10*(Int(rangeCheckIterate/10)))
         rangeCheckIterate = Int(rangeCheckIterate/10)
