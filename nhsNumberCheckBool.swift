@@ -1,12 +1,14 @@
 import Foundation
 
 func nhsNumberCheckBool(nhsNumber: String) -> Bool {
-    /* 
-    *  returns a bool corresponding to "is this a valid NHS number?" 
-    *  See http://www.datadictionary.nhs.uk/version2/data_dictionary/data_field_notes/n/nhs_number_de.asp?shownav=0
-    */ 
-    
-    // checks that nhsNumber actually contains something
+	/* 
+	*  returns a bool corresponding to "is this a valid NHS number?" 
+	*  See http://www.datadictionary.nhs.uk/version2/data_dictionary/data_field_notes/n/nhs_number_de.asp
+	*  This is written for Swift 3.0, backwards compatibility is not guaranteed.
+	*/
+	
+	// checks that nhsNumber actually contains something
+	//  using guard not empty, remove spaces & dashes, guard = 10 to allow less strict arguments.
     guard nhsNumber.isEmpty == false else {
         return false
     }
@@ -25,6 +27,7 @@ func nhsNumberCheckBool(nhsNumber: String) -> Bool {
     // need to declare this as it is an optional? Checks it only contains numbers.
     let nhsInt:Int? = Int(nhsNum)
     
+	// Checks it only contains numbers.
     guard nhsInt != nil else {
         return false
     }
@@ -46,11 +49,9 @@ func nhsNumberCheckBool(nhsNumber: String) -> Bool {
     var j:Int = 1
     var multiplier:Int = 10
     
-    /*
-    *  having initialised  tot as 0, then working back from the last digit
-    *  before the check sum, multiplies by 10 and adds to the total, multiplies 
-    *  by 9 and adds to the total and so on for all digits. 
-    */
+    /* having initialised  tot as 0, then working back from the last digit
+	*  before the check sum, multiplies by 10 and adds to the total, multiplies 
+	*/ by 9 and adds to the total and so on for all digits.
     while j < 10 {
         tot += multiplier * (rangeCheckIterate - 10*(Int(rangeCheckIterate/10)))
         rangeCheckIterate = Int(rangeCheckIterate/10)
@@ -61,14 +62,14 @@ func nhsNumberCheckBool(nhsNumber: String) -> Bool {
     // computes tot(mod 11) then takes this from 11
     var m:Int = 11 - (tot % 11)
     
-    // If m is 10, this NHS number is not valid. (this first due to preferring early execution)
-    guard m == 10 else {
+    // if m is 10, this NHS number is not valid. If m is 11, sets m to 10
+    switch m {
+    case 10:
         return false
-    }
-
-    // If m is 11, sets m to 10
-    if m == 11 {
+    case 11:
         m = 0
+    default:
+        ()
     }
     
     // returns whether or not m matches providedCs
@@ -88,12 +89,13 @@ let date_start = NSDate()
 *  by this method all numbers in the starting nhs value to nhs + some number
 *  will be checked for validity
 */
+
 while z < 1000 {
     nhsChar = String(nhs)
     // these bits are for testing, leave as comments by default
     // print(nhsChar)
-    // print(nhsNumberCheckBool(nhsChar))
-    nhsNumberCheckBool(nhsChar)
+	print(nhsNumberCheckBool(nhsNumber: nhsChar))
+	// nhsNumberCheckBool(nhsNumber: nhsChar)
     z+=1
     nhs+=1
 }
