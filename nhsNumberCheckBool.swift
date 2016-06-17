@@ -1,6 +1,7 @@
 import Foundation
 
 func nhsNumberCheckBool(nhsNumber: String) -> Bool {
+
 	/* 
 	*  returns a bool corresponding to "is this a valid NHS number?" 
 	*  See http://www.datadictionary.nhs.uk/version2/data_dictionary/data_field_notes/n/nhs_number_de.asp
